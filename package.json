@@ -1,0 +1,13 @@
+{
+  "name": "typechain",
+  "version": "1.0.0",
+  "description": "typechain",
+  "main": "index.js",
+  "repository": "https://github.com/ricepotato/typechain",
+  "author": "ricepotato <ricepotato40@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prestart": "tsc",
+    "start": "node index.js"
+  }
+}
