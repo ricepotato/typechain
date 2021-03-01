@@ -104,3 +104,5 @@ dist
 .tern-port
 index.js
 index.js.map
+
+dist
