@@ -70,11 +70,11 @@ const createNewBlock = (data: string): Block => {
     data,
     newTimestamp
   );
-
+  addBlock(newBlock);
   return newBlock;
 };
 
-console.log(createNewBlock("hello"), createNewBlock("bye bye"));
+//console.log(createNewBlock("hello"), createNewBlock("bye bye"));
 
 const getHashforBlock = (aBlock: Block): string =>
   Block.calculateBlockHash(
@@ -103,5 +103,11 @@ const addBlock = (candicateBlock: Block): void => {
     blockchain.push(candicateBlock);
   }
 };
+
+createNewBlock("second block");
+createNewBlock("third block");
+createNewBlock("fourth block");
+
+console.log(blockchain);
 
 export {}; // typescript rule, 이 파일이 모듈이 된다는 의미.
