@@ -16,6 +16,13 @@ class Block {
     return CryptoJs.SHA256(index + previousHash + timestamp + data).toString();
   };
 
+  static validateStructure = (aBlock: Block): boolean =>
+    typeof aBlock.index === "number" &&
+    typeof aBlock.hash === "string" &&
+    typeof aBlock.previousHash === "string" &&
+    typeof aBlock.timestamp === "number" &&
+    typeof aBlock.data === "string";
+
   constructor(
     index: number,
     hash: string,
@@ -36,6 +43,8 @@ const genesisBlock: Block = new Block(0, "202020", "", "hello", 12345);
 let blockchain: Block[] = [genesisBlock];
 
 console.log(blockchain);
+
+// blockchain.push("stuff");  string type push 불가
 
 const getBlockchain = (): Block[] => blockchain;
 
@@ -67,6 +76,32 @@ const createNewBlock = (data: string): Block => {
 
 console.log(createNewBlock("hello"), createNewBlock("bye bye"));
 
-// blockchain.push("stuff");  string type push 불가
+const getHashforBlock = (aBlock: Block): string =>
+  Block.calculateBlockHash(
+    aBlock.index,
+    aBlock.previousHash,
+    aBlock.timestamp,
+    aBlock.data
+  );
+
+const isBlockValid = (candidateBlock: Block, previousBlock: Block): boolean => {
+  if (!Block.validateStructure(candidateBlock)) {
+    return false;
+  } else if (previousBlock.index + 1 !== candidateBlock.index) {
+    return false;
+  } else if (previousBlock.hash !== candidateBlock.previousHash) {
+    return false;
+  } else if (getHashforBlock(candidateBlock) !== candidateBlock.hash) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+const addBlock = (candicateBlock: Block): void => {
+  if (isBlockValid(candicateBlock, getLatestBlock())) {
+    blockchain.push(candicateBlock);
+  }
+};
 
 export {}; // typescript rule, 이 파일이 모듈이 된다는 의미.
