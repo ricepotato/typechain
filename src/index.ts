@@ -1,57 +1,30 @@
-interface Human {
-    name: string;
-    age: number;
-    gender: string;
-}
-
-// ts 에서는 property 를 명시해야 한다.
- class HumanClsss {
-     public name: string;
-     public age: number;
-     public gender: string;
-
-     constructor(name:string, age:number, gender:string){         
-         this.name = name;
-         this.age = age;
-         this.gender = gender;
-     }
-
- }
-
-const name = "sukjun";
-const age = 24;
-const gender = "male";
-
-const person = {
-    name:"sukjun",
-    gender: "male",
-    age: 22
-}
-
-const sukjun = new HumanClsss("sukjun", 24, "male");
-
-// parameter 뒤에 ? 붙이면 optional
-const sayHi = (name, age, gender?) => {
-    console.log(`hello ${name}, you are ${age}, you are a ${gender}`);
-}
-
-// type 지정
-const sayHi2 = (name: string, age: number, gender: string): void => {
-    console.log(`hello ${name}, you are ${age}, you are a ${gender}`);
-}
-
-const sayHi3 = (person: Human): string => {
-    return `hello ${person.name}, you are ${person.age}, you are a ${person.gender}`;
-}
-
-const sayHi4 = (person: HumanClsss): string => {
-    return `hello ${person.name}, you are ${person.age}, you are a ${person.gender}`;
+class Block {
+    public index:number;
+    public hash: string;
+    public previousHash: string;
+    public data: string;
+    public timestamp: number;
+    constructor(index:number,
+        hash: string,
+        previousHash: string,
+        data: string,
+        timestamp: number) {
+            this.index = index;
+            this.hash = hash;
+            this.previousHash = previousHash;
+            this.data = data;
+            this.timestamp = timestamp;        
+    }
 }
 
 
-sayHi(name, age);
-sayHi2(name, age, gender);
-console.log(sayHi3(person));
-console.log(sayHi4(sukjun));
+const genesisBlock: Block = new Block(0, "202020", "", "hello", 12345); 
+
+let blockchain: [Block] = [genesisBlock];
+
+console.log(blockchain);
+
+// blockchain.push("stuff");  string type push 불가
+
 
 export {}; // typescript rule, 이 파일이 모듈이 된다는 의미.
